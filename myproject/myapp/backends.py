@@ -5,7 +5,7 @@ class CustomAuthBackend(BaseBackend):
     def authenticate(self, request, username=None, password=None):
         try:
             user = Users.objects.get(Username=username)
-            if user.check_password(password):
+            if user.check_password(password):  # Проверяем хешированный пароль
                 return user
         except Users.DoesNotExist:
             return None
