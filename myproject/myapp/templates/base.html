@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Project{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+        }
+        .header a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        .header .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .header .nav {
+            display: flex;
+            align-items: center;
+        }
+        .header .nav a {
+            margin-right: 15px;
+        }
+        .header .nav .logout {
+            background-color: #f44336;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .header .nav .logout:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">My Project</div>
+        <div class="nav">
+            {% if user.is_authenticated %}
+                {% if user.Role == 'admin' %}
+                    <a href="{% url 'admin_page' %}">Admin Page</a>
+                {% elif user.Role == 'user' %}
+                    <a href="{% url 'user_page' %}">User Page</a>
+                {% endif %}
+                <a href="{% url 'logout' %}" class="logout">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

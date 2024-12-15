@@ -2,6 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm, RegistrationForm
 from .models import Users
+from django.contrib.auth import logout
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
 
 def login_view(request):
     if request.method == 'POST':
